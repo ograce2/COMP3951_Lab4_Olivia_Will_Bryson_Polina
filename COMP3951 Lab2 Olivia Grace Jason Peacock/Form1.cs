@@ -18,5 +18,10 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             // test comment
 
         }
+
+        private void buttonDigit_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Digit clicked!");
+        }
     }
 }
