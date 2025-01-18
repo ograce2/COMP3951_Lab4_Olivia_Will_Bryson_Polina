@@ -33,7 +33,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Stores a binary operation for calculation. The binary operation can be /, *, -, +, or %.
         /// </summary>
-        private String operation;
+        private string operation;
 
         /// <summary>
         /// Stores the value saved to memory.
