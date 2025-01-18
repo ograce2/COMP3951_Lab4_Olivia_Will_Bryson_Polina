@@ -5,10 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/// <summary>
+/// Lab 2: Scientific Calculator
+/// Include here the authors: Jason Peacock and Olivia Grace
+/// Include here date/revisions:
+/// Source:
+/// </summary>
 namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 {
-    // Olivia 
-    internal class Calculation
+    /// <summary>
+    /// The Calculator class represents a calculator that can perform binary and unary operations and store memory. It contains attributes to represent two operands, an 
+    /// operation, and memory, as well as methods to access and update these attributes.
+    /// </summary>
+    internal class Calculator
     {
 
         /// <summary>
@@ -44,7 +53,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Constructor.
         /// </summary>
-        public Calculation()
+        public Calculator()
         {
             operand1 = null;
             operand2 = null;
@@ -63,16 +72,22 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// </summary>
         /// <param name="newOperation"></param>
         /// <returns></returns>
-        public double? setOperation(String newOperation)
+        public double? setOperation(string newOperation)
         {
             double? result = null;
-
 
             // Check if we are working with a unary operation or a binary operation
             if (newOperation == "sqrt" || newOperation == "1/x" || newOperation == "x^2")
             {
-                // Unary operations are not stored in operation, they will act on operand2 or operand1 (depending on what is set) and then store the result in the
-                // operand that they acted on.
+
+                if (operand2.HasValue)
+                {
+                    operand2 = performUnaryCalculation(newOperation, operand2 ?? 0);
+                }
+                else
+                {
+                    operand1 = performUnaryCalculation(newOperation, operand1 ?? 0);
+                }
 
             } else 
             {
@@ -93,6 +108,37 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
 
 
+            return result;
+        }
+
+
+        /// <summary>
+        /// Performs a unary calculation and returns the result. The operation parameter specifies the operator and the operand parameter specifies the operand for the 
+        /// unary calculation. The operation parameter can be 1/x, x^2, or sqrt.
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="operand"></param>
+        /// <returns></returns>
+        private double performUnaryCalculation(string operation, double operand)
+        {
+            double result = 0;
+            if (operation == "1/x")
+            {
+                if (operand == 0)
+                {
+                    result = Double.PositiveInfinity;
+                }
+                else
+                {
+                    result = 1 / operand;
+                }
+            } else if (operation == "x^2")
+            {
+                result = operand * operand;
+            } else if (operation == "sqrt")
+            {
+                result = Math.Sqrt(operand);
+            }
 
             return result;
         }
@@ -122,12 +168,19 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// Performs the calculation bases on what is stored in operand1, operation, or operand2 and returns the result. If operation is empty, then operand1 is returned.
+        /// Performs a binary calculation bases on what is stored in operand1, operation, or operand2 and returns the result. If operation is empty, then operand1 is returned.
         /// </summary>
         /// <returns></returns>
         public double? performCalculation()
         {
             double? result = null;
+
+
+            // Not sure if we need this, but I think this would help match the logic in the example calculator -- but the logic seems a bit strange...
+            if (operand2 == null && operand1.HasValue && operation != "")
+            {
+                operand2 = operand1;
+            }
 
             if (operand1.HasValue && operand2.HasValue && operation != "")
             {
@@ -135,7 +188,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
                 {
                     if (operand2 == 0)
                     {
-                        result = null;
+                        result = Double.PositiveInfinity;
                     }
                     else
                     {
@@ -157,9 +210,6 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             {
                 result = operand1;
             }
-
-
-
 
             return result;
         }
