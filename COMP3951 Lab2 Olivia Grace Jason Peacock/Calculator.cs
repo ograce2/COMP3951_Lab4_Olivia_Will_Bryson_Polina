@@ -91,16 +91,15 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 
             } else 
             {
-                // First call performCalculation
-                result = performCalculation();
-                if (result != null)
+                // If there is an existing calculation, perform it and store the result in operand1. Return operand1.
+                if (operand1.HasValue && operation != "" && operand2.HasValue)
                 {
+                    result = performCalculation();
                     operand1 = result;
                     operation = newOperation;
                     operand2 = null;
                 } else
                 {
-                    operand1 = 0;
                     operation = newOperation;
                     operand2 = null;
                 }
@@ -169,6 +168,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 
         /// <summary>
         /// Performs a binary calculation bases on what is stored in operand1, operation, or operand2 and returns the result. If operation is empty, then operand1 is returned.
+        /// If operand1 and operation have non-empty and non-null values and operand2 is null, copy the value of operand1 into operand2 and perform the caluclation that way.
         /// </summary>
         /// <returns></returns>
         public double? performCalculation()
@@ -177,6 +177,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 
 
             // Not sure if we need this, but I think this would help match the logic in the example calculator -- but the logic seems a bit strange...
+            // Comment this block out if it gets all wonky
             if (operand2 == null && operand1.HasValue && operation != "")
             {
                 operand2 = operand1;
