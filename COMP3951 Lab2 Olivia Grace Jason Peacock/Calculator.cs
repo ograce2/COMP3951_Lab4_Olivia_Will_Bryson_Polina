@@ -8,8 +8,7 @@ using System.Windows.Forms;
 /// <summary>
 /// Lab 2: Scientific Calculator
 /// Include here the authors: Jason Peacock and Olivia Grace
-/// Include here date/revisions:
-/// Source:
+/// Include here date/revisions: January 21, 2025
 /// </summary>
 namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 {
@@ -41,7 +40,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         private double memory;
 
         /// <summary>
-        /// Memory property.
+        /// Memory property. Includes a get and set function for accessing and updating memory.
         /// </summary>
         public double Memory
         {
@@ -199,7 +198,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// Performs a binary calculation bases on what is stored in operand1, operation, or operand2 and returns the result. If operation is empty, then operand1 is returned.
+        /// Performs a binary calculation based on what is stored in operand1, operation, or operand2 and returns the result. If operation is empty, then operand1 is returned.
         /// If operand1 and operation have non-empty and non-null values and operand2 is null, copy the value of operand1 into operand2 and perform the caluclation that way.
         /// </summary>
         /// <returns></returns>
@@ -207,9 +206,6 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         {
             double? result = null;
 
-
-            // Not sure if we need this, but I think this would help match the logic in the example calculator -- but the logic seems a bit strange...
-            // Comment this block out if it gets all wonky
             if (operand2 == null && operand1.HasValue && operation != "")
             {
                 operand2 = operand1;
