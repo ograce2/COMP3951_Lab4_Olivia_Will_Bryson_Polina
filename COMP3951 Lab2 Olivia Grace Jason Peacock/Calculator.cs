@@ -43,11 +43,41 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Memory property.
         /// </summary>
-        double Memory
+        public double Memory
         {
             get { return memory; }
 
             set { memory = value; }
+        }
+
+        /// <summary>
+        /// Operand1 property.
+        /// </summary>
+        public double? Operand1
+        {
+            get { return operand1; }
+
+            set { operand1 = value; }
+        }
+
+        /// <summary>
+        /// Operand2 property.
+        /// </summary>
+        public double? Operand2
+        {
+            get { return operand2; }
+
+            set { operand2 = value; }
+        }
+
+        /// <summary>
+        /// Operation property.
+        /// </summary>
+        public string Operation
+        {
+            get { return operation; }
+
+            set { operation = value; }
         }
 
         /// <summary>
@@ -82,11 +112,13 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 
                 if (operand2.HasValue)
                 {
-                    operand2 = performUnaryCalculation(newOperation, operand2 ?? 0);
+                    result = performUnaryCalculation(newOperation, operand2 ?? 0);
+                    operand2 = result;
                 }
                 else
                 {
-                    operand1 = performUnaryCalculation(newOperation, operand1 ?? 0);
+                    result = performUnaryCalculation(newOperation, operand1 ?? 0);
+                    operand1 = result;
                 }
 
             } else 
@@ -162,7 +194,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             {
                 operand1 = newOperand;
                 operand2 = null;
-                operation = null;
+                operation = "";
             }
         }
 
@@ -215,6 +247,20 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             return result;
         }
 
+        public void clearCurrent()
+        {
+            //Doesn't work correctly. How can we tell when operator1 and the operation need to be cleared vs when operand2 needs to be cleared?
+            if(operand1 != null && operation.Equals(""))
+            {
+                operand1 = null;
+            }
+        }
         
+        public void clearAll()
+        {
+            operand1 = null;
+            operand2 = null;
+            operation = "";
+        }
     }
 }
