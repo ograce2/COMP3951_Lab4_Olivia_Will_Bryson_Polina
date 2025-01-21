@@ -69,9 +69,8 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         private void buttonOperation_Click(object sender, EventArgs e)
         {
             Button buttonClicked = (Button)sender;
-
-            String currentBoxText = textBoxCalculation.Text;
             String selectedOperation = buttonClicked.Text;
+            String currentBoxText = textBoxCalculation.Text;
 
             double? result;
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
@@ -231,6 +230,22 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         private void Form1_Load(object sender, EventArgs e)
         {
             calculator = new Calculator();
+        }
+
+        private void inputInterpreter(string input)
+        {
+            textBoxCalculation.Text = input;
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char[] validInputs = { '*', '/', '-', '+', '%', '^', 'x', '=' };
+
+            int i;
+            if(int.TryParse(e.KeyChar.ToString(), out i) || validInputs.Contains(e.KeyChar))
+            {
+                inputInterpreter(e.KeyChar.ToString());
+            }
         }
     }
 }
