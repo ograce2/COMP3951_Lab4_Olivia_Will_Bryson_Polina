@@ -38,6 +38,12 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Click(object sender, EventArgs e)
         {
             Button buttonClicked;
@@ -51,6 +57,12 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             this.ActiveControl = null;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
             char[] validInputs = { '*', '/', '-', '+', '%', '^', 'i', '=' };
@@ -63,6 +75,12 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         //Seperate for handling enter
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -71,6 +89,10 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
         private void inputInterpreter(string input)
         {
             string[] operationInputs = { "*", "/", "-", "+", "%", "^", "i", "1/x", "x^2", "sqrt" };
@@ -112,6 +134,10 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
         private void handleNumericInput(string input)
         {
             string currentBoxText = textBoxCalculation.Text;
@@ -143,6 +169,11 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         // set operand1 of the Calculation object to be the value in the textbox
         // if operand1, operand2, oepration are set then set operand1 to be their result, else set operand1 to be
         // the value in the textbox (unless 1/x or x^2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
         private void handleOperationInputs(string input)
         {
             String currentBoxText = textBoxCalculation.Text;
@@ -182,7 +213,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// sets Calculation.M to be 0
+        /// Sets the calculator's memory to 0.
         /// </summary>
         private void MemoryClear()
         {
@@ -190,7 +221,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// Sets the textbox to be the value in memory
+        /// Sets the textbox to be the value in the calculator's memory
         /// </summary>
         private void MemoryRecall()
         {
@@ -198,7 +229,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// Assigns the value in the textbox to memory
+        /// Assigns the value in the textbox to the calculator's memory.
         /// </summary>
         private void MemoryAssign()
         {
@@ -208,7 +239,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// Adds the value in the textbox to memory
+        /// Adds the value in the textbox to the calculator's memory.
         /// </summary>
         private void MemoryAdd()
         {
@@ -227,6 +258,10 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         // clear all (C button --> check lab instructions for exact)
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void ClearAll()
         {
             calculator.clearAll();
