@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /// <summary>
-/// Lab 2: Scientific Calculator
+/// Lab 2: Calculator Application
 /// Include here the authors: Jason Peacock and Olivia Grace
 /// Include here date/revisions: January 21, 2025
 /// </summary>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /// <summary>
-/// Lab 2: Scientific Calculator
+/// Lab 2: Calculator Application
 /// Include here the authors: Jason Peacock and Olivia Grace
 /// Include here date/revisions: January 21, 2025
 /// </summary>
@@ -50,26 +50,6 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// Operand1 property.
-        /// </summary>
-        public double? Operand1
-        {
-            get { return operand1; }
-
-            set { operand1 = value; }
-        }
-
-        /// <summary>
-        /// Operand2 property.
-        /// </summary>
-        public double? Operand2
-        {
-            get { return operand2; }
-
-            set { operand2 = value; }
-        }
-
-        /// <summary>
         /// Operation property.
         /// </summary>
         public string Operation
@@ -80,7 +60,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// Constructor.
+        /// Constructor. Initializes a new Calculator object.
         /// </summary>
         public Calculator()
         {
@@ -99,8 +79,8 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// calculated, then operand1 is set to 0, operation is set to newOperation, and operand2 is set to null.
         /// 
         /// </summary>
-        /// <param name="newOperation"></param>
-        /// <returns></returns>
+        /// <param name="newOperation">a string representing an operation</param>
+        /// <returns>a double if a calculation was performed, null otherwise</returns>
         public double? setOperation(string newOperation)
         {
             double? result = null;
@@ -146,9 +126,9 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// Performs a unary calculation and returns the result. The operation parameter specifies the operator and the operand parameter specifies the operand for the 
         /// unary calculation. The operation parameter can be 1/x, x^2, or sqrt.
         /// </summary>
-        /// <param name="operation"></param>
-        /// <param name="operand"></param>
-        /// <returns></returns>
+        /// <param name="operation">a string representing a unary operation</param>
+        /// <param name="operand">an operand</param>
+        /// <returns>the result of the calculation of the unary operation on the operand</returns>
         private double performUnaryCalculation(string operation, double operand)
         {
             double result = 0;
@@ -180,7 +160,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// If operand1 is not null and operand 2 is null then operand2 is set to newOperand.
         /// If operand1 and operand2 are both not null, then operand1 is set to newOperand and operation and operand2 are set to null.
         /// </summary>
-        /// <param name="newOperand"></param>
+        /// <param name="newOperand">a double</param>
         public void setOperand(double newOperand)
         {
             if (operand1 == null)
@@ -201,7 +181,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// Performs a binary calculation based on what is stored in operand1, operation, or operand2 and returns the result. If operation is empty, then operand1 is returned.
         /// If operand1 and operation have non-empty and non-null values and operand2 is null, copy the value of operand1 into operand2 and perform the caluclation that way.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>the result of the calculation or operand1 if a calculation can not be performed</returns>
         public double? performCalculation()
         {
             double? result = null;
@@ -243,6 +223,9 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void clearCurrent()
         {
             //Doesn't work correctly. How can we tell when operator1 and the operation need to be cleared vs when operand2 needs to be cleared?
@@ -252,6 +235,9 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
         }
         
+        /// <summary>
+        /// Clears operand1 and operand2 by setting them both to null. Clears operation by setting it to an empty string.
+        /// </summary>
         public void clearAll()
         {
             operand1 = null;

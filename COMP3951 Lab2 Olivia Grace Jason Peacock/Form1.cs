@@ -10,20 +10,29 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /// <summary>
-/// Lab 2: Scientific Calculator
+/// Lab 2: Calculator Application
 /// Include here the authors: Jason Peacock and Olivia Grace
 /// Include here date/revisions: January 21, 2025
 /// </summary>
 namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 {
+    /// <summary>
+    /// Form1 represents the interface for the calculator application. It contains a Calculator object and
+    /// methods for the user to interact with the Calculator.
+    /// </summary>
     public partial class Form1 : Form
     {
 
+        /// <summary>
+        /// A Calculator object to handle the logic of the calculator application.
+        /// </summary>
         Calculator calculator;
 
         bool justEnteredOperation = false;
         
-
+        /// <summary>
+        /// Initializes the components of Form1.
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -155,7 +164,9 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
         }
 
-        // sets value in textbox to be opposite parity
+        /// <summary>
+        /// Sets the value in textbox to be opposite parity.
+        /// </summary>
         private void PlusMinus()
         {
             String currentBoxText = textBoxCalculation.Text;
@@ -170,19 +181,25 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
         }
 
-        // sets Calculation.M to be 0
+        /// <summary>
+        /// sets Calculation.M to be 0
+        /// </summary>
         private void MemoryClear()
         {
             calculator.Memory = 0;
         }
 
-        // sets the textbox to be the value in memory
+        /// <summary>
+        /// Sets the textbox to be the value in memory
+        /// </summary>
         private void MemoryRecall()
         {
             textBoxCalculation.Text = calculator.Memory.ToString();
         }
 
-        // assigns the value in the textbox to memory
+        /// <summary>
+        /// Assigns the value in the textbox to memory
+        /// </summary>
         private void MemoryAssign()
         {
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
@@ -190,7 +207,9 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
              calculator.Memory = textBoxNumber;
         }
 
-        // adds the value in the textbox to memory
+        /// <summary>
+        /// Adds the value in the textbox to memory
+        /// </summary>
         private void MemoryAdd()
         {
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
@@ -198,7 +217,9 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             calculator.Memory += textBoxNumber;
         }
 
-        // clear the current operand
+        /// <summary>
+        /// Clears the current operand from the calculator.
+        /// </summary>
         private void ClearCurrent()
         {
             calculator.clearCurrent();
@@ -212,7 +233,9 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             textBoxCalculation.Text = "0";
         }
 
-        // removes last digit from textbox
+        /// <summary>
+        /// Removes last digit from textbox
+        /// </summary>
         private void Backspace()
         {
             String currentBoxText = textBoxCalculation.Text;
@@ -230,7 +253,9 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             textBoxCalculation.Text = updatedBoxText;
         }
 
-        // equals operation, calls Calculation.performCalculation and puts result in textbox
+        /// <summary>
+        /// Calls the calculator's performCalculation function and displays the result in the textbox.
+        /// </summary>
         private void Equals()
         {
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
@@ -246,7 +271,11 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
         }
 
-        // enables/disables the buttons and loads image into picture box at bottom of the screen
+        /// <summary>
+        /// Turns the calculator on or off. When turning the calculator on, all buttons are enabled and 
+        /// a pictures is loaded at the bottom of the screen. When turning the calculator off, all buttons
+        /// except the On/Off button are disabled and the picture is removed from the bottom of the screen.
+        /// </summary>
         private void togglePower()
         {
             calculator.clearAll();
@@ -292,7 +321,11 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             pictureBoxImage.Visible = !pictureBoxImage.Visible;
         }
 
-        // creates a new calculation object
+        /// <summary>
+        /// Creates a new calculation object.
+        /// </summary>
+        /// <param name="sender">the form</param>
+        /// <param name="e">the load event</param>
         private void Form1_Load(object sender, EventArgs e)
         {
             calculator = new Calculator();
