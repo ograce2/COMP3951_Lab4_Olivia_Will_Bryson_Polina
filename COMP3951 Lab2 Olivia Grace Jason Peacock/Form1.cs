@@ -12,7 +12,7 @@ using System.Windows.Forms;
 /// <summary>
 /// Lab 2: Calculator Application
 /// Include here the authors: Jason Peacock and Olivia Grace
-/// Include here date/revisions: January 21, 2025
+/// Include here date/revisions: January 22, 2025
 /// </summary>
 namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 {
@@ -27,8 +27,6 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// A Calculator object to handle the logic of the calculator application.
         /// </summary>
         Calculator calculator;
-
-        bool justEnteredOperation = false;
         
         /// <summary>
         /// Initializes the components of Form1.
@@ -40,10 +38,11 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 
 
         /// <summary>
-        /// 
+        /// Handles button click events from the form by sending the button text to an interpreter.
+        /// Sets the focus back to the form so the enter key can be intercepted and used as equals operator.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The object that initiated the Click event</param>
+        /// <param name="e">A Click event</param>
         private void button_Click(object sender, EventArgs e)
         {
             Button buttonClicked;
@@ -59,10 +58,12 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 
 
         /// <summary>
-        /// 
+        /// Handles KeyPress events from the form by sending numbers and valid operators to be interpreted.
+        /// KeyPress used over KeyDown for numbers and operators since it allows easier identification of inputs
+        /// like * through KeyChar
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The object that initiated the KeyPress event</param>
+        /// <param name="e">The KeyPress event</param>
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
             char[] validInputs = { '*', '/', '-', '+', '%', '^', 'i', '=' };
@@ -74,25 +75,26 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
         }
 
-        //Seperate for handling enter
-
         /// <summary>
-        /// 
+        /// Handles KeyDown events. Only used for identifying when enter has been pressed and used for equals.
+        /// Implemented this way as the enter key is not easily identfied through the KeyPress event.
+        /// Calls inputInterpreter() rather than Equals() directly for more consistent behaviour.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The object that initiated the KeyDown event</param>
+        /// <param name="e">The KeyDown event</param>
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Equals();
+                inputInterpreter("=");
             }
         }
 
         /// <summary>
-        /// 
+        /// Takes incoming strings representing numeric or operational inputs and interprets them.
+        /// Calls the appropriate method to deal with the given input.
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="input">A string representing a single user input</param>
         private void inputInterpreter(string input)
         {
             string[] operationInputs = { "*", "/", "-", "+", "%", "^", "i", "1/x", "x^2", "sqrt" };
@@ -115,7 +117,6 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
             else
             {
-                //Enter behaviour? We want it to do equals button
                 switch (input)
                 {
                     case "+/-": PlusMinus(); break;
@@ -135,9 +136,11 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// 
+        /// Takes numeral string inputs as well as decimal and updates the calculators text box
+        /// Logic exists to ensure overwriting a single zero, overwriting existing operation results,
+        /// and dealing with decimal input edge cases all operate correctly.
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="input">A string consisting of one numeral digit or a decimal</param>
         private void handleNumericInput(string input)
         {
             string currentBoxText = textBoxCalculation.Text;
@@ -149,10 +152,10 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
 
             // allows replacing of number on display rather than appending after an operation with two operands
-            if (!calculator.Operation.Equals("") && justEnteredOperation == true)
+            if (!calculator.Operation.Equals("") && calculator.JustEnteredOperation == true)
             {
                 textBoxCalculation.Text = input;
-                justEnteredOperation = false;
+                calculator.JustEnteredOperation = false;
             }
             // ignores duplicate decimal point input
             else if (currentBoxText.Contains(".") && input.Equals("."))
@@ -166,14 +169,12 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
         }
 
-        // set operand1 of the Calculation object to be the value in the textbox
-        // if operand1, operand2, oepration are set then set operand1 to be their result, else set operand1 to be
-        // the value in the textbox (unless 1/x or x^2)
-
         /// <summary>
-        /// 
+        /// Set operand1 of the Calculation object to be the value in the textbox
+        /// if operand1, operand2, oepration are set then set operand1 to be their result, else set operand1 to be
+        /// the value in the textbox. Edge cases for the unary operators 1/x, x^2, and sqrt
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="input">A string containing a validated operation identifier</param>
         private void handleOperationInputs(string input)
         {
             String currentBoxText = textBoxCalculation.Text;
@@ -191,7 +192,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
             if (input != "1/x" && input != "x^2" && input != "sqrt")
             {
-                justEnteredOperation = true;
+                calculator.JustEnteredOperation = true;
             }
         }
 
@@ -257,10 +258,8 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             textBoxCalculation.Text = "0";
         }
 
-        // clear all (C button --> check lab instructions for exact)
-
         /// <summary>
-        /// 
+        /// Clears operand1, operand2, and the operator in the calculator object, leaves memory.
         /// </summary>
         private void ClearAll()
         {
@@ -269,7 +268,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// Removes last digit from textbox
+        /// Removes last digit from textbox. if textbox text length is one instead replaces with zero.
         /// </summary>
         private void Backspace()
         {
@@ -303,6 +302,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             if (result != null)
             {
                 textBoxCalculation.Text = result.ToString();
+                calculator.JustEnteredOperation = true;
             }
         }
 

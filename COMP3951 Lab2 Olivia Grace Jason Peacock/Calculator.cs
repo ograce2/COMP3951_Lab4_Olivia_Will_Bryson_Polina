@@ -40,6 +40,11 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         private double memory;
 
         /// <summary>
+        /// A flag to tell if the calculator has just entered a calculation.
+        /// </summary>
+        bool justEnteredOperation = false;
+
+        /// <summary>
         /// Memory property. Includes a get and set function for accessing and updating memory.
         /// </summary>
         public double Memory
@@ -60,6 +65,16 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
+        /// justEnteredOperation property.
+        /// </summary>
+        public bool JustEnteredOperation
+        {
+            get { return justEnteredOperation; }
+
+            set { justEnteredOperation = value; }
+        }
+
+        /// <summary>
         /// Constructor. Initializes a new Calculator object.
         /// </summary>
         public Calculator()
@@ -74,7 +89,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// If newOperation is a unary operation (x^2, 1/x, or sqrt) then newOperation acts on operand1 or operand2, depending on which is set, stores its result
         /// in that operand, and then returns the result.
         /// 
-        /// If newOperationi is a binary operation (+, - , *, /, or %) then performCalculation is called for the existing operand1, operand2, and operation. If a non-null 
+        /// If newOperation is a binary operation (+, - , *, /, or %) then performCalculation is called for the existing operand1, operand2, and operation. If a non-null 
         /// result is calculated then that result is returned and stored in operand1, newOperation is stored in oepration, and operand2 is set to null. If a null result is 
         /// calculated, then operand1 is set to 0, operation is set to newOperation, and operand2 is set to null.
         /// 
@@ -224,11 +239,10 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         /// <summary>
-        /// 
+        /// Clears the current operand
         /// </summary>
         public void clearCurrent()
         {
-            //Doesn't work correctly. How can we tell when operator1 and the operation need to be cleared vs when operand2 needs to be cleared?
             if(operand1 != null && operation.Equals(""))
             {
                 operand1 = null;
