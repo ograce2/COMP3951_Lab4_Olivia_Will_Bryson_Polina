@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,19 +29,86 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             InitializeComponent();
         }
 
-        // appends the digit to the textbox
-        private void buttonDigit_Click(object sender, EventArgs e)
+        private void button_Click(object sender, EventArgs e)
         {
             Button buttonClicked;
-            String currentBoxText;
             String buttonText;
 
             buttonClicked = (Button)sender;
-            currentBoxText = textBoxCalculation.Text;
             buttonText = buttonClicked.Text;
 
+            inputInterpreter(buttonText);
+
+            this.ActiveControl = null;
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char[] validInputs = { '*', '/', '-', '+', '%', '^', 'i', '=' };
+
+            int i;
+            if (int.TryParse(e.KeyChar.ToString(), out i) || validInputs.Contains(e.KeyChar))
+            {
+                inputInterpreter(e.KeyChar.ToString());
+            }
+        }
+
+        //Seperate for handling enter
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Equals();
+            }
+        }
+
+        private void inputInterpreter(string input)
+        {
+            string[] operationInputs = { "*", "/", "-", "+", "%", "^", "i", "1/x", "x^2", "sqrt" };
+
+            int i;
+            if (int.TryParse(input, out i) || input.Equals("."))
+            {
+                handleNumericInput(input);
+            }
+            else if (operationInputs.Contains(input))
+            {
+                switch (input)
+                {
+                    case "^": input = "x^2"; break;
+                    case "i": input = "1/x"; break;
+                    case "s": input = "sqrt"; break;
+                }
+
+                handleOperationInputs(input);
+            }
+            else
+            {
+                //Enter behaviour? We want it to do equals button
+                switch (input)
+                {
+                    case "+/-": PlusMinus(); break;
+                    case "CE": ClearCurrent(); break;
+                    case "C": ClearAll(); break;
+                    case "<-": Backspace(); break;
+                    case "=": Equals(); break;
+                    case "MC": MemoryClear(); break;
+                    case "MR": MemoryRecall(); break;
+                    case "MS": MemoryAssign(); break;
+                    case "M+": MemoryAdd(); break;
+                    case "On": togglePower(); break;
+                    case "Off": togglePower(); break;
+                    default: MessageBox.Show("INVALID INPUT SPECIFIED"); break;
+                }
+            }
+        }
+
+        private void handleNumericInput(string input)
+        {
+            string currentBoxText = textBoxCalculation.Text;
+
             // set display to nothing in anticipation of a replacement if current is just 0 and incoming isn't a decimal
-            if (currentBoxText.Equals("0") && buttonText != ".")
+            if (currentBoxText.Equals("0") && input != ".")
             {
                 currentBoxText = "";
             }
@@ -48,28 +116,26 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             // allows replacing of number on display rather than appending after an operation with two operands
             if (!calculator.Operation.Equals("") && justEnteredOperation == true)
             {
-                textBoxCalculation.Text = buttonClicked.Text;
+                textBoxCalculation.Text = input;
                 justEnteredOperation = false;
             }
             // ignores duplicate decimal point input
-            else if (currentBoxText.Contains(".") && buttonText.Equals("."))
+            else if (currentBoxText.Contains(".") && input.Equals("."))
             {
                 // do nothing
             }
             // otherwise concatenate new digit
             else
             {
-                textBoxCalculation.Text = String.Concat(currentBoxText, buttonClicked.Text);
+                textBoxCalculation.Text = String.Concat(currentBoxText, input);
             }
         }
 
         // set operand1 of the Calculation object to be the value in the textbox
         // if operand1, operand2, oepration are set then set operand1 to be their result, else set operand1 to be
         // the value in the textbox (unless 1/x or x^2)
-        private void buttonOperation_Click(object sender, EventArgs e)
+        private void handleOperationInputs(string input)
         {
-            Button buttonClicked = (Button)sender;
-            String selectedOperation = buttonClicked.Text;
             String currentBoxText = textBoxCalculation.Text;
 
             double? result;
@@ -77,20 +143,20 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 
             calculator.setOperand(textBoxNumber);
 
-            result = calculator.setOperation(selectedOperation);
+            result = calculator.setOperation(input);
 
             if (result != null)
             {
                 textBoxCalculation.Text = result.ToString();
             }
-            if(selectedOperation != "1/x" && selectedOperation != "x^2" && selectedOperation != "sqrt")
+            if (input != "1/x" && input != "x^2" && input != "sqrt")
             {
                 justEnteredOperation = true;
             }
         }
 
         // sets value in textbox to be opposite parity
-        private void buttonPlusMinus_Click(object sender, EventArgs e)
+        private void PlusMinus()
         {
             String currentBoxText = textBoxCalculation.Text;
 
@@ -105,19 +171,19 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         // sets Calculation.M to be 0
-        private void buttonMemoryClear_Click(object sender, EventArgs e)
+        private void MemoryClear()
         {
             calculator.Memory = 0;
         }
 
         // sets the textbox to be the value in memory
-        private void buttonMemoryRecall_Click(object sender, EventArgs e)
+        private void MemoryRecall()
         {
             textBoxCalculation.Text = calculator.Memory.ToString();
         }
 
         // assigns the value in the textbox to memory
-        private void buttonMemoryAssign_Click(object sender, EventArgs e)
+        private void MemoryAssign()
         {
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
 
@@ -125,7 +191,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         // adds the value in the textbox to memory
-        private void buttonMemoryAdd_Click(object sender, EventArgs e)
+        private void MemoryAdd()
         {
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
 
@@ -133,21 +199,21 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         // clear the current operand
-        private void buttonClearCurrent_Click(object sender, EventArgs e)
+        private void ClearCurrent()
         {
             calculator.clearCurrent();
             textBoxCalculation.Text = "0";
         }
 
         // clear all (C button --> check lab instructions for exact)
-        private void buttonClearAll_Click(object sender, EventArgs e)
+        private void ClearAll()
         {
             calculator.clearAll();
             textBoxCalculation.Text = "0";
         }
 
         // removes last digit from textbox
-        private void buttonBackspace_Click(object sender, EventArgs e)
+        private void Backspace()
         {
             String currentBoxText = textBoxCalculation.Text;
             String updatedBoxText;
@@ -165,7 +231,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         // equals operation, calls Calculation.performCalculation and puts result in textbox
-        private void buttonEquals_Click(object sender, EventArgs e)
+        private void Equals()
         {
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
             double? result;
@@ -181,7 +247,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         }
 
         // enables/disables the buttons and loads image into picture box at bottom of the screen
-        private void buttonOnOff_Click(object sender, EventArgs e)
+        private void togglePower()
         {
             calculator.clearAll();
 
@@ -230,22 +296,6 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         private void Form1_Load(object sender, EventArgs e)
         {
             calculator = new Calculator();
-        }
-
-        private void inputInterpreter(string input)
-        {
-            textBoxCalculation.Text = input;
-        }
-
-        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char[] validInputs = { '*', '/', '-', '+', '%', '^', 'x', '=' };
-
-            int i;
-            if(int.TryParse(e.KeyChar.ToString(), out i) || validInputs.Contains(e.KeyChar))
-            {
-                inputInterpreter(e.KeyChar.ToString());
-            }
         }
     }
 }
