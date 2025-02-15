@@ -12,6 +12,11 @@
 
         <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
+            <!-- 
+            this control is what creates the text box and binds it to the property in 
+            markdown editor viewmodel. so any text you write there will be displayed
+            in the Editor area defined here.
+            -->
             <Editor Text="{Binding Text, Mode=Default}"
                     FontFamily="Courier New"
                     BackgroundColor="White"
