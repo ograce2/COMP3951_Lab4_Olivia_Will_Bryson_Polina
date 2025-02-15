@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:BestNoteSkeleton.Views"
+             xmlns:vm="clr-namespace:BestNoteSkeleton.ViewModels"
+             x:Class="BestNoteSkeleton.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid ColumnDefinitions="2*, 5*, 3*"
+          RowDefinitions="Auto, *"
+          Padding="10">
+
+        <views:FileStructureView Grid.Column="0"
+                                 BackgroundColor="LightGray"/>
+
+        <views:MarkdownEditorView Grid.Column="1"
+                                  BackgroundColor="White"/>
+
+        <Grid Grid.Column="2">
+            <views:MarkdownRendererView IsVisible="{Binding IsMarkdownVisible}"/>
+            <views:EmbedPdfView IsVisible="{Binding IsPdfVisible}"/>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

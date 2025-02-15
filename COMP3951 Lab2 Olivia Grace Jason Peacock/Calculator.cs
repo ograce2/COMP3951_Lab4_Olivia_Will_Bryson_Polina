@@ -16,7 +16,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
     /// The Calculator class represents a calculator that can perform binary and unary operations and store memory. It contains attributes to represent two operands, an 
     /// operation, and memory, as well as methods to access and update these attributes.
     /// </summary>
-    internal class Calculator
+    public class Calculator
     {
 
         /// <summary>

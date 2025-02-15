@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+    
+<!--
+    main app layout. where we adjust the container for the panes.
+    the xaml files only really "describe" the UI. they don't actually contain any logic.
+    instead we "bind" with BindingContext to a view model. this is really just employing
+    the observer pattern. when we bind Mainpage.xaml to the MainViewModel.cs, this becomes
+    the receiver and MainViewModel becomes the sender. 
+    
+    it's annoying as hell that xaml comments are like this but csharp comments are like
+    /* */
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:BestSkeletoNote.Views"
+             xmlns:vm="clr-namespace:BestSkeletoNote.ViewModels"
+             x:Class="BestSkeletoNote.MainPage">
+
+    <!-- connects the main page to the view model-->
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+
+    
+    <Grid ColumnDefinitions="2*, 6*, 3*" 
+          RowDefinitions="Auto, *" 
+          Padding="10">
+
+        
+        <views:FileStructureView Grid.Column="0"
+                                 BackgroundColor="LightGray"
+                                 Padding="10"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="FillAndExpand"/>
+
+        <views:MarkdownEditorView Grid.Column="1"
+                                  BackgroundColor="White"
+                                  Padding="10"
+                                  VerticalOptions="FillAndExpand"
+                                  HorizontalOptions="FillAndExpand"/>
+
+        <Grid Grid.Column="2"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            RowDefinitions="*, *">
+
+            <views:MarkdownRendererView Grid.Row="0"
+                                        BackgroundColor="LightYellow"
+                                        Padding="10"
+                                        VerticalOptions="FillAndExpand"
+                                        HorizontalOptions="FillAndExpand"/>
+
+
+            <views:EmbedPdfView Grid.Row="1"
+                                BackgroundColor="LightBlue"
+                                Padding="10"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand"/>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
