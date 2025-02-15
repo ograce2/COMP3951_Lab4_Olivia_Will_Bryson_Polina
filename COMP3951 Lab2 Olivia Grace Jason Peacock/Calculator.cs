@@ -120,7 +120,15 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
                 // If there is an existing calculation, perform it and store the result in operand1. Return operand1.
                 if (operand1.HasValue && operation != "" && operand2.HasValue)
                 {
-                    result = performCalculation();
+                    try
+                    {
+                        result = performCalculation();
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        result = Double.PositiveInfinity;
+                    }
+                    
                     operand1 = result;
                     operation = newOperation;
                     operand2 = null;
@@ -212,7 +220,8 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
                 {
                     if (operand2 == 0)
                     {
-                        result = Double.PositiveInfinity;
+                        //result = Double.PositiveInfinity;
+                        throw new DivideByZeroException();
                     }
                     else
                     {

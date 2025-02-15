@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 /// <summary>
 /// Lab 2: Calculator Application
 /// Include here the authors: Jason Peacock and Olivia Grace
@@ -34,6 +35,23 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         public Form1()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Resets the calculator to a new calculator.
+        /// </summary>
+        public void ResetCalculator()
+        {
+            calculator = new Calculator();
+        }
+
+        /// <summary>
+        /// Returns the form's calculator.
+        /// </summary>
+        /// <returns></returns>
+        public Calculator GetCalculator()
+        {
+            return calculator;
         }
 
 
@@ -141,7 +159,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// and dealing with decimal input edge cases all operate correctly.
         /// </summary>
         /// <param name="input">A string consisting of one numeral digit or a decimal</param>
-        private void handleNumericInput(string input)
+        public void handleNumericInput(string input)
         {
             string currentBoxText = textBoxCalculation.Text;
 
@@ -199,7 +217,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Sets the value in textbox to be opposite parity.
         /// </summary>
-        private void PlusMinus()
+        public void PlusMinus()
         {
             String currentBoxText = textBoxCalculation.Text;
 
@@ -216,7 +234,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Sets the calculator's memory to 0.
         /// </summary>
-        private void MemoryClear()
+        public void MemoryClear()
         {
             calculator.Memory = 0;
         }
@@ -224,7 +242,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Sets the textbox to be the value in the calculator's memory
         /// </summary>
-        private void MemoryRecall()
+        public void MemoryRecall()
         {
             textBoxCalculation.Text = calculator.Memory.ToString();
         }
@@ -232,7 +250,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Assigns the value in the textbox to the calculator's memory.
         /// </summary>
-        private void MemoryAssign()
+        public void MemoryAssign()
         {
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
 
@@ -242,7 +260,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Adds the value in the textbox to the calculator's memory.
         /// </summary>
-        private void MemoryAdd()
+        public void MemoryAdd()
         {
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
 
@@ -252,7 +270,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Clears the current operand from the calculator.
         /// </summary>
-        private void ClearCurrent()
+        public void ClearCurrent()
         {
             calculator.clearCurrent();
             textBoxCalculation.Text = "0";
@@ -261,7 +279,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Clears operand1, operand2, and the operator in the calculator object, leaves memory.
         /// </summary>
-        private void ClearAll()
+        public void ClearAll()
         {
             calculator.clearAll();
             textBoxCalculation.Text = "0";
@@ -270,7 +288,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Removes last digit from textbox. if textbox text length is one instead replaces with zero.
         /// </summary>
-        private void Backspace()
+        public void Backspace()
         {
             String currentBoxText = textBoxCalculation.Text;
             String updatedBoxText;
@@ -290,14 +308,21 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <summary>
         /// Calls the calculator's performCalculation function and displays the result in the textbox.
         /// </summary>
-        private void Equals()
+        public void Equals()
         {
             double textBoxNumber = Double.Parse(textBoxCalculation.Text);
             double? result;
 
             calculator.setOperand(textBoxNumber);
 
-            result = calculator.performCalculation();
+            try
+            {
+                result = calculator.performCalculation();
+            }
+            catch (DivideByZeroException)
+            {
+                result = Double.PositiveInfinity;
+            }
 
             if (result != null)
             {
@@ -363,7 +388,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <param name="e">the load event</param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            calculator = new Calculator();
+            ResetCalculator();
         }
     }
 }
