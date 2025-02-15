@@ -321,7 +321,11 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             }
             catch (DivideByZeroException)
             {
-                result = Double.PositiveInfinity;
+                // result = Double.PositiveInfinity;
+                result = null;
+                MessageBox.Show("Cannot divide by zero.");
+                calculator.JustEnteredOperation = true;
+
             }
 
             if (result != null)
