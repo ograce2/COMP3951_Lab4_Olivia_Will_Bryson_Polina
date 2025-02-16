@@ -141,9 +141,9 @@ namespace UnitTestProject1
         public void TestInverseError()
         {
             calculator.setOperand(0);
-            calculator.setOperation("1/x");
+            // calculator.setOperation("1/x");
             // double? result = calculator.performCalculation();
-            Assert.ThrowsException<DivideByZeroException>(() => calculator.performCalculation());
+            Assert.ThrowsException<DivideByZeroException>(() => calculator.setOperation("1/x"));
         }
     }
 }
