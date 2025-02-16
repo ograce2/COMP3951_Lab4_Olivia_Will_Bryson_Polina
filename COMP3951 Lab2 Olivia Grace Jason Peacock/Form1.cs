@@ -224,6 +224,12 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
                 MessageBox.Show("Cannot divide by zero.");
                 calculator.JustEnteredOperation = true;
             }
+            catch (Exception e)
+            {
+                result = null;
+                MessageBox.Show("Calculation error.");
+                calculator.JustEnteredOperation = true;
+            }
 
             if (result != null)
             {
@@ -355,6 +361,12 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
                 MessageBox.Show("Cannot divide by zero.");
                 calculator.JustEnteredOperation = true;
 
+            }
+            catch (Exception e)
+            {
+                result = null;
+                MessageBox.Show("Calculation error.");
+                calculator.JustEnteredOperation = true;
             }
 
             if (result != null)
