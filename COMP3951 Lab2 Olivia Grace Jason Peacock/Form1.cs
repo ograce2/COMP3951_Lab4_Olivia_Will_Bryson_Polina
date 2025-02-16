@@ -28,6 +28,12 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// A Calculator object to handle the logic of the calculator application.
         /// </summary>
         Calculator calculator;
+
+        /// <summary>
+        /// An auto-implemented property to signal if the calculator screen is currently showing the result of a 
+        /// calculation.
+        /// </summary>
+        public Boolean ResultDisplayed { get; set; }
         
         /// <summary>
         /// Initializes the components of Form1.
@@ -161,6 +167,12 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// <param name="input">A string consisting of one numeral digit or a decimal</param>
         public void handleNumericInput(string input)
         {
+
+            if (ResultDisplayed)
+            {
+                return;
+            }
+
             string currentBoxText = textBoxCalculation.Text;
 
             // set display to nothing in anticipation of a replacement if current is just 0 and incoming isn't a decimal
@@ -220,6 +232,11 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             if (input != "1/x" && input != "x^2" && input != "sqrt")
             {
                 calculator.JustEnteredOperation = true;
+                ResultDisplayed = false;
+            }
+            else if (result != null)
+            {
+                 ResultDisplayed = true;
             }
         }
 
@@ -254,6 +271,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         public void MemoryRecall()
         {
             textBoxCalculation.Text = calculator.Memory.ToString();
+            ResultDisplayed = true;
         }
 
         /// <summary>
@@ -283,6 +301,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         {
             calculator.clearCurrent();
             textBoxCalculation.Text = "0";
+            ResultDisplayed = false;
         }
 
         /// <summary>
@@ -292,6 +311,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         {
             calculator.clearAll();
             textBoxCalculation.Text = "0";
+            ResultDisplayed = false;
         }
 
         /// <summary>
@@ -341,6 +361,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
             {
                 textBoxCalculation.Text = result.ToString();
                 calculator.JustEnteredOperation = true;
+                ResultDisplayed = true;
             }
         }
 
@@ -352,6 +373,8 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         private void togglePower()
         {
             calculator.clearAll();
+
+            ResultDisplayed = false;
 
             buttonOnOff.Text = buttonOnOff.Text.Equals("On") ? "Off" : "On";
 
