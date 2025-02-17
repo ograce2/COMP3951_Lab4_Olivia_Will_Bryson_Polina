@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 
-namespace BestSkeletoNote.ViewModels;
+namespace SkeletoNoteLibrary.ViewModels;
 
 public partial class FileStructureViewModel : ObservableObject
 {

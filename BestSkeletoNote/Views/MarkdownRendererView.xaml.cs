@@ -1,4 +1,4 @@
-using BestSkeletoNote.ViewModels;
+using SkeletoNoteLibrary.ViewModels;
 
 namespace BestSkeletoNote.Views;
 

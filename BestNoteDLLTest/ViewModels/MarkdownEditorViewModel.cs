@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace BestSkeletoNote.ViewModels;
+namespace SkeletoNoteLibrary.ViewModels;
 
 public partial class MarkdownEditorViewModel : ObservableObject
 {
