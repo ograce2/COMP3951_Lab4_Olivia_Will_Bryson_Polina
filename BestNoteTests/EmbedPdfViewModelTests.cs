@@ -22,5 +22,15 @@ namespace BestNoteTests
 
             Assert.Equal(value, pdfVM.Pdf);
         }
+
+        [Fact]
+        public void TestLoadPDF_FileNotFoundException()
+        {
+            var pdfVM = new EmbedPdfViewModel();
+            var value = "invalid.pdf";
+
+            pdfVM.Pdf = value;
+            Assert.Throws<FileNotFoundException>(() => pdfVM.LoadPDF());
+        }
     }
 }
