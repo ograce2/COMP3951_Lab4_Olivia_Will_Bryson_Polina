@@ -1,6 +1,11 @@
 ﻿using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 
+/// <summary>
+/// Lab 4: BestNote Unit Testing
+/// Authors: Olivia Grace, Bryson Lindy, Polina Omelyantseva, Will Otterbein
+/// Revised: February 17, 2025
+/// </summary>
 namespace SkeletoNoteLibrary.ViewModels;
 
 public partial class EmbedPdfViewModel : ObservableObject
@@ -18,5 +23,19 @@ public partial class EmbedPdfViewModel : ObservableObject
            
 
         }
+    }
+
+    /// <summary>
+    /// Validates that the string in the Pdf property is a path to .pdf file.
+    /// </summary>
+    /// <returns>true if the path ends in ".pdf", false otherwise</returns>
+    public Boolean ValidateFileType()
+    {
+        Boolean validFile = false;
+        if (Pdf.Length > 0 && Pdf.Substring(Pdf.Length - 4).ToUpper() == ".PDF") {
+            validFile = true;
+        }
+
+        return validFile;
     }
 }

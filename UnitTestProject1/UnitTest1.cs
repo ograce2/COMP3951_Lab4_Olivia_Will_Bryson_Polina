@@ -3,6 +3,11 @@ using COMP3951_Lab2_Olivia_Grace_Jason_Peacock;
 using System;
 using System.Diagnostics;
 
+/// <summary>
+/// Lab 4: Calculator Application Unit Testing
+/// Authors: Olivia Grace, Bryson Lindy, Polina Omelyantseva, Will Otterbein
+/// Revised: February 17, 2025
+/// </summary>
 namespace UnitTestProject1
 {
 

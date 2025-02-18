@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /// <summary>
-/// Lab 2: Calculator Application
-/// Include here the authors: Jason Peacock and Olivia Grace
-/// Include here date/revisions: January 21, 2025
+/// Lab 4: Calculator Application Unit Testing
+/// Version 2 Authors: Olivia Grace, Bryson Lindy, Polina Omelyantseva, Will Otterbein
+/// Version 1 Authors: Jason Peacock and Olivia Grace
+/// Revised: February 17, 2025
 /// </summary>
 namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
 {
