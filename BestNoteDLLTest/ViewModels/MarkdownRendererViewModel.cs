@@ -7,8 +7,14 @@
 /// </summary>
 namespace SkeletoNoteLibrary.ViewModels;
 
+/// <summary>
+/// The MarkdownRendererViewModel class contains data displayed in MarkdownRendererView.xaml.
+/// </summary>
 public partial class MarkdownRendererViewModel : ObservableObject
 {
+    /// <summary>
+    /// The rendered Markdown to display.
+    /// </summary>
     [ObservableProperty]
     private string _renderedMarkdown = "### marky markdown";
 }

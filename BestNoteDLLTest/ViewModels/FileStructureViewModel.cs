@@ -8,8 +8,14 @@ using System.Collections.ObjectModel;
 /// </summary>
 namespace SkeletoNoteLibrary.ViewModels;
 
+/// <summary>
+/// The FileStructureViewModel class contains data for displaying the BestNote file structure in FileStructureView.xaml.
+/// </summary>
 public partial class FileStructureViewModel : ObservableObject
 {
+    /// <summary>
+    /// A collection of the files in the file structure.
+    /// </summary>
     [ObservableProperty]
     private ObservableCollection<string> _files = new()
     {

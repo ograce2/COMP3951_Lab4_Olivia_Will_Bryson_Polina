@@ -7,6 +7,9 @@
 /// </summary>
 namespace BestNoteTests
 {
+    /// <summary>
+    /// Unit tests for the EmbedPdfViewModel class
+    /// </summary>
     public class EmbedPdfViewModelTests
     {
         [Fact]

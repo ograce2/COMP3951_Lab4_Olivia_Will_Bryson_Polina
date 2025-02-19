@@ -7,6 +7,10 @@
 /// </summary>
 namespace BestNoteTests
 {
+
+    /// <summary>
+    /// Unit tests for the MarkdownEditorViewModel class.
+    /// </summary>
     public class MarkdownEditorViewModelTests
     {
         [Fact]

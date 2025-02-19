@@ -7,6 +7,9 @@ using SkeletoNoteLibrary.ViewModels;
 /// </summary>
 namespace BestNoteTests
 {
+    /// <summary>
+    /// Unit tests for the FileStructureViewModel class.
+    /// </summary>
     public class FileStructureViewModelTests
     {
         /*

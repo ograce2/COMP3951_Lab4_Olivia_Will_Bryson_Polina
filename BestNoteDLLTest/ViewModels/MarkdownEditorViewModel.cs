@@ -7,8 +7,14 @@
 /// </summary>
 namespace SkeletoNoteLibrary.ViewModels;
 
+/// <summary>
+/// The MarkdownEditorViewModel class contains data displayed in MarkdownEditorView.xaml.
+/// </summary>
 public partial class MarkdownEditorViewModel : ObservableObject
 {
+    /// <summary>
+    /// The current text in the Markdown editor.
+    /// </summary>
     [ObservableProperty]
     private string _text = "Now we typin...";
 }

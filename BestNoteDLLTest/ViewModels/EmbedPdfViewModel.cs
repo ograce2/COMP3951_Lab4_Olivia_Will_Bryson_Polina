@@ -8,8 +8,15 @@ using CommunityToolkit.Mvvm.ComponentModel;
 /// </summary>
 namespace SkeletoNoteLibrary.ViewModels;
 
+/// <summary>
+/// The EmbedPdfViewModel contains the data and functionality for viewing a PDF in EmbedPdfView.xaml.
+/// </summary>
 public partial class EmbedPdfViewModel : ObservableObject
 {
+
+    /// <summary>
+    /// The path of the pdf to display.
+    /// </summary>
     [ObservableProperty]
     private string _pdf = "A whole entire pdf";
 
