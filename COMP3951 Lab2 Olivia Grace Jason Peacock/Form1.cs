@@ -206,7 +206,7 @@ namespace COMP3951_Lab2_Olivia_Grace_Jason_Peacock
         /// the value in the textbox. Edge cases for the unary operators 1/x, x^2, and sqrt
         /// </summary>
         /// <param name="input">A string containing a validated operation identifier</param>
-        private void handleOperationInputs(string input)
+        public void handleOperationInputs(string input)
         {
             String currentBoxText = textBoxCalculation.Text;
 

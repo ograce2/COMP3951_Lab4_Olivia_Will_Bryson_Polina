@@ -150,5 +150,46 @@ namespace UnitTestProject1
             // double? result = calculator.performCalculation();
             Assert.ThrowsException<DivideByZeroException>(() => calculator.setOperation("1/x"));
         }
+
+        [TestMethod]
+        public void TestHandleOperationsInput_ResultDisplayed_False()
+        {
+            form1.ResetCalculator();
+            form1.handleOperationInputs("+");
+            Assert.IsFalse(form1.ResultDisplayed);
+        }
+
+        [TestMethod]
+        public void TestHandleOperationsInput_ResultDisplayed_True()
+        {
+            form1.ResetCalculator();
+            form1.handleOperationInputs("sqrt");
+            Assert.IsTrue(form1.ResultDisplayed);
+        }
+
+        [TestMethod]
+        public void MemoryRecall_ResultDisplayed_True()
+        {
+            form1.ResetCalculator();
+            form1.MemoryRecall();
+;            Assert.IsTrue(form1.ResultDisplayed);
+        }
+
+        [TestMethod]
+        public void ClearAll_ResultDisplayed_False()
+        {
+            form1.ResetCalculator();
+            form1.ClearAll();
+            Assert.IsFalse(form1.ResultDisplayed);
+        }
+
+        [TestMethod]
+        public void ClearCurrent_ResultDisplayed_False()
+        {
+            form1.ResetCalculator();
+            form1.ClearCurrent();
+            Assert.IsFalse(form1.ResultDisplayed);
+        }
+
     }
 }
