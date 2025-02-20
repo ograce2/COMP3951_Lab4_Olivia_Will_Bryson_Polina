@@ -11,23 +11,15 @@ namespace SkeletoNoteLibrary.ViewModels;
 /// <summary>
 /// The BufferWriteException class is an exception which is thrown when the buffer is full.
 /// </summary>
-public class BufferWriteException : Exception
+public class BufferWriteException(string message) : Exception(message)
 {
-    public EmployeeListNotFoundException(string message)
-        : base(message)
-    {
-    }
 }
 
 /// <summary>
 /// The BufferWriteException class is an exception which is thrown when the buffer is full.
 /// </summary>
-public class BufferNotEmptyException : Exception
+public class BufferNotFullException(string message) : Exception(message)
 {
-    public EmployeeListNotFoundException(string message)
-        : base(message)
-    {
-    }
 }
 
 /// <summary>
@@ -41,6 +33,7 @@ public partial class MarkdownEditorViewModel : ObservableObject
     [ObservableProperty]
     private string _text = "Now we typin...";
     private int lastByte = 0;
+    private bool bufferFull = false;
 
     public byte[] Buffer { get; set; } = new byte[1024];
 
@@ -51,7 +44,7 @@ public partial class MarkdownEditorViewModel : ObservableObject
     {
         // Raise an exception that the buffer is full
         // Logic elsewhere for writing the bytes in the file class
-        throw new BufferWriteException();
+        throw new BufferWriteException("Buffer full.");
     }
 
     /// <summary>
@@ -63,8 +56,19 @@ public partial class MarkdownEditorViewModel : ObservableObject
         {
             // Writing bytes to a buffer
             Buffer[lastByte++] = nbytes[i];
-            if (lastByte == Buffer.Length - 1)
+            // Flag whether the buffer is full
+            if (lastByte >= Buffer.Length - 1)
+            {
+                bufferFull = true;
+                Console.WriteLine("Buffer is resettable");
+            }
+            Console.WriteLine(lastByte + " " + (Buffer.Length - 2));
+            // Buffer is going to exceed it's size
+            // Buffer needs to be flushed to the file being written
+            if (lastByte >= Buffer.Length)
+            {
                 FlushBuffer();
+            }
         }
     }
 
@@ -75,10 +79,11 @@ public partial class MarkdownEditorViewModel : ObservableObject
     {
         // Last byte not being the end means it is not empty
         // Buffer needs to be flushed before it can be reset
-        if (lastByte <= Buffer.Length - 1)
-            throw new BufferNotEmptyException();
+        if (!bufferFull)
+            throw new BufferNotFullException("Buffer is not full");
 
         lastByte = 0;
+        bufferFull = false;
         Buffer = new byte[1024];
     }
 }

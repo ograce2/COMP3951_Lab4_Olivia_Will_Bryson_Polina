@@ -74,7 +74,7 @@ namespace BestNoteTests
         public void TestResetBuffer_BufferNotFull()
         {
             var mem = new MarkdownEditorViewModel();
-            Assert.Throws<BufferNotEmptyException>(() => mem.ResetBuffer());
+            Assert.Throws<BufferNotFullException>(() => mem.ResetBuffer());
         }
     }
 }
