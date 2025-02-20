@@ -31,7 +31,7 @@ namespace BestNoteTests
         {
             var filesVM = new FileStructureViewModel();
 
-            filesVM.Files.Remove("some_sick-ass_notes.md");
+            filesVM.Files.Remove("some_cool_notes.md");
 
             Assert.Empty(filesVM.Files);
         }
