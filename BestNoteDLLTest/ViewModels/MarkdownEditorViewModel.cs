@@ -13,10 +13,21 @@ namespace SkeletoNoteLibrary.ViewModels;
 /// </summary>
 public class BufferWriteException : Exception
 {
+    public EmployeeListNotFoundException(string message)
+        : base(message)
+    {
+    }
 }
 
+/// <summary>
+/// The BufferWriteException class is an exception which is thrown when the buffer is full.
+/// </summary>
 public class BufferNotEmptyException : Exception
 {
+    public EmployeeListNotFoundException(string message)
+        : base(message)
+    {
+    }
 }
 
 /// <summary>
