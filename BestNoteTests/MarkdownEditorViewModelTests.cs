@@ -31,5 +31,50 @@ namespace BestNoteTests
 
             Assert.NotNull(editorVM.Text);
         }
+
+        /// <summary>
+        /// Testing method writes bytes to a buffer and succeeds.
+        /// </summary>
+        [Fact]
+        public void TestWriteToBuffer()
+        {
+            var mem = new MarkdownEditorViewModel();
+            mem.WriteBytesToBuffer(new byte[500]);
+            Assert.IsTrue(true);
+        }
+
+        /// <summary>
+        /// Testing method writes bytes to a buffer and fills the buffer.
+        /// </summary>
+        [Fact]
+        public void TestWriteToBuffer_BufferFills()
+        {
+            var mem = new MarkdownEditorViewModel();
+            Assert.Throws<BufferWriteException>(() => mem.WriteBytesToBuffer(new byte[1025]));
+        }
+
+        /// <summary>
+        /// Testing method resets the buffer after filling it.
+        /// </summary>
+        [Fact]
+        public void TestResetBuffer()
+        {
+            var mem = new MarkdownEditorViewModel();
+            // Fill the buffer
+            mem.WriteBytesToBuffer(new byte[1024]);
+            // Should not throw exception and pass
+            mem.ResetBuffer();
+            Assert.IsTrue(true);
+        }
+
+        /// <summary>
+        /// Testing method resets the buffer but it is not full.
+        /// </summary>
+        [Fact]
+        public void TestResetBuffer_BufferNotFull()
+        {
+            var mem = new MarkdownEditorViewModel();
+            Assert.Throws<BufferNotEmptyException>(() => mem.ResetBuffer());
+        }
     }
 }
