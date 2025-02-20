@@ -40,7 +40,7 @@ namespace BestNoteTests
         {
             var mem = new MarkdownEditorViewModel();
             mem.WriteBytesToBuffer(new byte[500]);
-            Assert.IsTrue(true);
+            Assert.True(true);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace BestNoteTests
             mem.WriteBytesToBuffer(new byte[1024]);
             // Should not throw exception and pass
             mem.ResetBuffer();
-            Assert.IsTrue(true);
+            Assert.True(true);
         }
 
         /// <summary>

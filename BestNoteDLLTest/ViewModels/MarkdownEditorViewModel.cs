@@ -40,7 +40,7 @@ public partial class MarkdownEditorViewModel : ObservableObject
     {
         // Raise an exception that the buffer is full
         // Logic elsewhere for writing the bytes in the file class
-        throw BufferWriteException("Buffer is full.");
+        throw new BufferWriteException();
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ public partial class MarkdownEditorViewModel : ObservableObject
         for (int i = 0; i < nbytes.Length; i++)
         {
             // Writing bytes to a buffer
-            buffer[lastByte++] = nbytes[i];
+            Buffer[lastByte++] = nbytes[i];
             if (lastByte == Buffer.Length - 1)
                 FlushBuffer();
         }
@@ -64,8 +64,8 @@ public partial class MarkdownEditorViewModel : ObservableObject
     {
         // Last byte not being the end means it is not empty
         // Buffer needs to be flushed before it can be reset
-        if (lastByte != Buffer.Length - 1)
-            throw BufferNotEmptyException("Cannot reset the buffer as it is not full currently.");
+        if (lastByte <= Buffer.Length - 1)
+            throw new BufferNotEmptyException();
 
         lastByte = 0;
         Buffer = new byte[1024];
