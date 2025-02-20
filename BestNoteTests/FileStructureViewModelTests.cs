@@ -12,9 +12,7 @@ namespace BestNoteTests
     /// </summary>
     public class FileStructureViewModelTests
     {
-        /*
-         * Add and remove are just Collection methods but we don't really have anything else to test here righ tnow
-         */
+ 
         [Fact]
         public void TestAddFile_Success()
         {
