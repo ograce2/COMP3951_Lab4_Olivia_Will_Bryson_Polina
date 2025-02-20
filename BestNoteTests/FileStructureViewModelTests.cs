@@ -12,9 +12,7 @@ namespace BestNoteTests
     /// </summary>
     public class FileStructureViewModelTests
     {
-        /*
-         * Add and remove are just Collection methods but we don't really have anything else to test here righ tnow
-         */
+ 
         [Fact]
         public void TestAddFile_Success()
         {
@@ -31,7 +29,7 @@ namespace BestNoteTests
         {
             var filesVM = new FileStructureViewModel();
 
-            filesVM.Files.Remove("some_sick-ass_notes.md");
+            filesVM.Files.Remove("some_cool_notes.md");
 
             Assert.Empty(filesVM.Files);
         }
