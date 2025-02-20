@@ -13,10 +13,21 @@ namespace SkeletoNoteLibrary.ViewModels;
 /// </summary>
 public class BufferWriteException : Exception
 {
+    public EmployeeListNotFoundException(string message)
+        : base(message)
+    {
+    }
 }
 
+/// <summary>
+/// The BufferWriteException class is an exception which is thrown when the buffer is full.
+/// </summary>
 public class BufferNotEmptyException : Exception
 {
+    public EmployeeListNotFoundException(string message)
+        : base(message)
+    {
+    }
 }
 
 /// <summary>
@@ -40,7 +51,7 @@ public partial class MarkdownEditorViewModel : ObservableObject
     {
         // Raise an exception that the buffer is full
         // Logic elsewhere for writing the bytes in the file class
-        throw BufferWriteException("Buffer is full.");
+        throw BufferWriteException();
     }
 
     /// <summary>
@@ -65,7 +76,7 @@ public partial class MarkdownEditorViewModel : ObservableObject
         // Last byte not being the end means it is not empty
         // Buffer needs to be flushed before it can be reset
         if (lastByte != Buffer.Length - 1)
-            throw BufferNotEmptyException("Cannot reset the buffer as it is not full currently.");
+            throw BufferNotEmptyException();
 
         lastByte = 0;
         Buffer = new byte[1024];
