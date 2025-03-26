@@ -54,6 +54,10 @@ public partial class MarkdownEditorViewModel : ObservableObject
     {
         for (int i = 0; i < nbytes.Length; i++)
         {
+            if (lastByte >= Buffer.Length)
+            {
+                FlushBuffer();
+            }
             // Writing bytes to a buffer
             Buffer[lastByte++] = nbytes[i];
             // Flag whether the buffer is full
@@ -62,13 +66,9 @@ public partial class MarkdownEditorViewModel : ObservableObject
                 bufferFull = true;
                 Console.WriteLine("Buffer is resettable");
             }
-            Console.WriteLine(lastByte + " " + (Buffer.Length - 2));
+            Console.WriteLine(lastByte + " " + (Buffer.Length));
             // Buffer is going to exceed it's size
             // Buffer needs to be flushed to the file being written
-            if (lastByte >= Buffer.Length)
-            {
-                FlushBuffer();
-            }
         }
     }
 
